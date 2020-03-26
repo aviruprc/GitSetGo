@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-frontend
+  labels:
+    app: deployment-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     app: pod-frontend
+  template:
+    metadata:
+      name: pod-frontend
+      labels:
+        app: pod-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: jeevanjot/frontend
+          env:
+            - name: SERVER
+              value: "http://service-backend:8082"
+          ports:
+          - containerPort: 8080

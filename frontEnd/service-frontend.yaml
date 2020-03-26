@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: service-frontend
+    labels:
+        app: deployment-frontend
+spec:
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    selector:
+        app: pod-frontend
+    type: LoadBalancer

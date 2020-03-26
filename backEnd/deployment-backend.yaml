@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-backened
+  labels:
+    app: deployment-backend
+spec:
+  replicas: 3
+  selector:
+    matchLables:
+     app: pod-backend
+  template:
+    metadata:
+      name: pod-backened
+      labels:
+        app: pod-backend
+    spec:
+      containers:
+        - name: backend
+          image: jeevanjot/backend
+          ports:
+          - containerPort: 8082 
