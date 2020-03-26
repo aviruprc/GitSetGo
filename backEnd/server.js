@@ -1,5 +1,9 @@
 'use strict';
-
+const Firestore = require('@google-cloud/firestore');
+const firestore = new Firestore({
+ projectId: 'roidtc-0323-attendee114',
+//   keyFilename: '/path/to/keyfile.json',
+});
 // express is a nodejs web server
 // https://www.npmjs.com/package/express
 const express = require('express');
@@ -48,15 +52,12 @@ app.get('/events', (req, res) => {
 // this will produce unexpected behavior in a stateless kubernetes cluster. 
 app.post('/event', (req, res) => {
     // create a new object from the json data and add an id
-    const ev = { 
-        title: req.body.title, 
-        description: req.body.description,
-        id : mockEvents.events.length + 1
-     }
-    // add to the mock array
-    mockEvents.events.push(ev);
-    // return the complete array
-    res.json(mockEvents);
+    let addDoc = firestore.collection('eventsDatabase').add({
+        eventDetails: req.body.title,
+        eventLocation: req.body.description
+      }).then(ref => {
+        console.log('Added document with ID: ', ref.id);
+      });
 });
 
 app.use((err, req, res, next) => {
