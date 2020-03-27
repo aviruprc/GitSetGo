@@ -20,14 +20,23 @@ app.use(bodyParser.json());
 
 // mock events data - for a real solution this data should be coming 
 // from a cloud data store
-const mockEvents = {
+const Events = {
     events: [
-        { title: 'an event', id: 1, description: 'something really cool' },
-        { title: 'another event', id: 2, description: 'something even cooler' }
+        
     ]
 };
 
-
+let eventsRef = firestore.collection('eventsDatabase');
+let allEvents = eventsRef.get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      Events.events.push(doc.data());
+      console.log(doc.data());
+    });
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
 
 
 // health endpoint - returns an empty array
@@ -44,7 +53,19 @@ app.get('/version', (req, res) => {
 // mock events endpoint. this would be replaced by a call to a datastore
 // if you went on to develop this as a real application.
 app.get('/events', (req, res) => {
-    res.json(mockEvents);
+
+    let eventsRef = firestore.collection('eventsDatabase');
+let allEvents = eventsRef.get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      Events.events.push(doc.data());
+      console.log(doc.data());
+    });
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+    res.json(Events);
 });
 
 // Adds an event - in a real solution, this would insert into a cloud datastore.
@@ -58,6 +79,7 @@ app.post('/event', (req, res) => {
       }).then(ref => {
         console.log('Added document with ID: ', ref.id);
       });
+      res.json(Events);
 });
 
 app.use((err, req, res, next) => {
