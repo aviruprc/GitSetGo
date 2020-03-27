@@ -26,6 +26,7 @@ const Events = {
     ]
 };
 
+
 let eventsRef = firestore.collection('eventsDatabase');
 let allEvents = eventsRef.get()
   .then(snapshot => {
@@ -37,7 +38,6 @@ let allEvents = eventsRef.get()
   .catch(err => {
     console.log('Error getting documents', err);
   });
-
 
 // health endpoint - returns an empty array
 app.get('/', (req, res) => {
@@ -54,17 +54,17 @@ app.get('/version', (req, res) => {
 // if you went on to develop this as a real application.
 app.get('/events', (req, res) => {
 
-    let eventsRef = firestore.collection('eventsDatabase');
-let allEvents = eventsRef.get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      Events.events.push(doc.data());
-      console.log(doc.data());
-    });
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
+//     let eventsRef = firestore.collection('eventsDatabase');
+// let allEvents = eventsRef.get()
+//   .then(snapshot => {
+//     snapshot.forEach(doc => {
+//       Events.events.push(doc.data());
+//       console.log(doc.data());
+//     });
+//   })
+//   .catch(err => {
+//     console.log('Error getting documents', err);
+//   });
     res.json(Events);
 });
 
@@ -74,13 +74,18 @@ let allEvents = eventsRef.get()
 app.post('/event', (req, res) => {
     
     // create a new object from the json data and add an id
-    let addDoc = firestore.collection('eventsDatabase').add({
-        eventDetails: req.body.title,
-        eventLocation: req.body.description
-      }).then(ref => {
+    const ev = { 
+        eventDetails: req.body.title, 
+        eventLocation: req.body.description,
+       }
+    let addDoc = firestore.collection('eventsDatabase').add(ev).then(ref => 
+    {
         console.log('Added document with ID: ', ref.id);
+        Events.events.push(ev);
+        console.log(Events.events);
       })
-     res.json(Events); 
+      res.json(Events);
+    
 });
 
 app.use((err, req, res, next) => {
