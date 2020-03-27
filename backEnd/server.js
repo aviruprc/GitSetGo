@@ -20,24 +20,7 @@ app.use(bodyParser.json());
 
 // mock events data - for a real solution this data should be coming 
 // from a cloud data store
-const Events = {
-    events: [
-        
-    ]
-};
 
-
-let eventsRef = firestore.collection('eventsDatabase');
-let allEvents = eventsRef.get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      Events.events.push(doc.data());
-      console.log(doc.data());
-    });
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
 
 // health endpoint - returns an empty array
 app.get('/', (req, res) => {
@@ -53,26 +36,38 @@ app.get('/version', (req, res) => {
 // mock events endpoint. this would be replaced by a call to a datastore
 // if you went on to develop this as a real application.
 app.get('/events', (req, res) => {
-
-//     let eventsRef = firestore.collection('eventsDatabase');
-// let allEvents = eventsRef.get()
-//   .then(snapshot => {
-//     snapshot.forEach(doc => {
-//       Events.events.push(doc.data());
-//       console.log(doc.data());
-//     });
-//   })
-//   .catch(err => {
-//     console.log('Error getting documents', err);
-//   });
-    res.json(Events);
+    const Events = {
+    events: [
+        
+    ]
+    };
+    let eventsRef = firestore.collection('eventsDatabase');
+    let allEvents = eventsRef.get()
+    .then(snapshot => {
+    snapshot.forEach(doc => {
+      Events.events.push(doc.data());
+      console.log(doc.data());
+        });
+    })
+    
+    .then(()=> {
+        console.log(Events.events);
+        res.json(Events.events);
+    })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+   
 });
 
 // Adds an event - in a real solution, this would insert into a cloud datastore.
 // Currently this simply adds an event to the mock array in memory
 // this will produce unexpected behavior in a stateless kubernetes cluster. 
 app.post('/event', (req, res) => {
-    
+      const Events = {
+    events: [
+            ]
+};
     // create a new object from the json data and add an id
     const ev = { 
         eventDetails: req.body.title, 

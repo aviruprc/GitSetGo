@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
                     // {{body}} in the layout - the code
                     // in here inserts values from the JSON
                     // received from the server
-                    events: body.events
+                    events: body
                 }); // pass the data from the server to the template
         });
 
