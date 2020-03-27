@@ -1,25 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+.container {
+  width: 500px;
+  clear: both;
+}
+
+.container input {
+  width: 100%;
+  clear: both;
+}
+</style>
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
   <title>Desi BookMyShow</title>
   <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 </head>
 <body>
-  <div>
-      <h1>Welcome to GIT SET GO application</h1>
-    {{{body}}}
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="#home" class="w3-bar-item w3-button">Git Set Go</a>
+    <!-- Right-sided navbar links. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+	    <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#events" class="w3-bar-item w3-button">Events</a>
+      <a href="#add" class="w3-bar-item w3-button">Add Events</a>
+      <a href="#contact" class="w3-bar-item w3-button">Top Rated Events</a>
+	  <a href="https://gitsetgo.auth.ap-south-1.amazoncognito.com/login?client_id=3cob592lcvktrf456f4lvsft39&response_type=code&scope=phone+email+openid+aws.cognito.signin.user.admin+profile&redirect_uri=https://8080-dot-11362257-dot-devshell.appspot.com/ 
+" class="w3-bar-item w3-button">Logout</a>
+    </div>
+  </div>
 </div>
-<div>
-  <h2>Add an event</h2>
+<div class="w3-content" style="max-width:1100px">
+
+  <!-- About Section -->
+   <div class="w3-row w3-padding-64" id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="../images/image1.jpg" width="100" height="150">
+    </div>
+
+    <div class="w3-col m6 w3-padding-large">
+      <h1 class="w3-center">About Us</h1><br>
+      <p class="w3-large">This page is all about events going around.You will find all the events that are being hosted and You can even add an event if you are hosting and let people around you about them.</div>
+  </div>
+  
+  <hr>
+  
+  <!-- Events Section -->
+  <div class="w3-row w3-padding-64" id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="../images/image1.jpg" width="100" height="150">
+    </div>
+
+  <div class="w3-row w3-padding-64" id="events">
+    <div class="w3-col l6 w3-padding-large">
+      <h1 class="w3-center">List of all the Events</h1><br>
+      {{{body}}}    
+    </div>
+    
+    <div class="w3-col l6 w3-padding-large">
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- add Section -->
+  <div class="w3-container w3-padding-64" id="add">
+    <h1>Add Events</h1><br>
+    <p>We understand you have some event being hosted and you want to publish it here.Please add you event and let people know about it.</p>
+    <div class="container">
     <form action="/event" method="post">
-       title: <input name="title" type="text" /> <br />
-       description: <input name="description" type="text" /> <br />
+      <label>Event</label>
+      <input type="text" name="Event" required><br />
+      <label>Description</label>
+      <input type="text" name="Description" required><br />
+      </div>
        <br />
         <input type="submit" name="submit" value="submit" />
     </form>
   </div>
-</body>
+  
+<!-- End page content -->
+</div>
+
 </html>
