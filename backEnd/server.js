@@ -72,14 +72,15 @@ let allEvents = eventsRef.get()
 // Currently this simply adds an event to the mock array in memory
 // this will produce unexpected behavior in a stateless kubernetes cluster. 
 app.post('/event', (req, res) => {
+    
     // create a new object from the json data and add an id
     let addDoc = firestore.collection('eventsDatabase').add({
         eventDetails: req.body.title,
         eventLocation: req.body.description
       }).then(ref => {
         console.log('Added document with ID: ', ref.id);
-      });
-      res.json(Events);
+      })
+     res.json(Events); 
 });
 
 app.use((err, req, res, next) => {
